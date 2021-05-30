@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -33,6 +35,15 @@ namespace aim
     {
         private Office.IRibbonUI ribbon;
 
+        private string alert_level = @"SOFTWARE\KALX\xll";
+        private enum XLL_ALERT : uint
+        {
+            ERROR = 1,
+            WARNING = 2,
+            INFO = 4,
+            // LOG = 8,
+        };
+
         public Ribbon1()
         {
         }
@@ -52,6 +63,53 @@ namespace aim
         public void Ribbon_Load(Office.IRibbonUI ribbonUI)
         {
             this.ribbon = ribbonUI;
+        }
+        public Bitmap GetInfoIcon(Office.IRibbonControl control)
+        {
+            return SystemIcons.Information.ToBitmap();
+        }
+        public Bitmap GetWarningIcon(Office.IRibbonControl control)
+        {
+            return SystemIcons.Warning.ToBitmap();
+        }
+        public Bitmap GetErrorIcon(Office.IRibbonControl control)
+        {
+            return SystemIcons.Error.ToBitmap();
+        }
+        private XLL_ALERT GetAlert()
+        {
+            XLL_ALERT level = 0;
+
+            using (var key = Registry.CurrentUser.OpenSubKey(alert_level))
+            {
+                var xal = key.GetValue("xll_alert_level");
+                level = (XLL_ALERT)xal;
+            }
+            
+            return level;
+        }
+        private void SetAlert(XLL_ALERT level)
+        {
+            using (var key = Registry.CurrentUser.CreateSubKey(alert_level))
+            {
+                key.SetValue("xll_alert_level", level);
+            }
+        }
+        public void OnAlert(Office.IRibbonControl control, bool pressed)
+        {
+            XLL_ALERT level = GetAlert();
+            Enum.TryParse(control.Tag, out XLL_ALERT value);
+
+            if (pressed)
+            {
+                level |= value;
+            }
+            else
+            {
+                level &= ~value;
+            }
+
+            SetAlert(level);
         }
 
         #endregion

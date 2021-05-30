@@ -2,9 +2,31 @@
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
   <ribbon>
     <tabs>
-      <tab idMso="TabAddIns">
-        <group id="MyGroup"
-               label="My Group">
+      <tab idMso="TabAddIns" label="XllAddIns">
+        <group id="alertsGroup" label="Alerts">
+          <box id="infoBox" boxStyle="vertical">
+            <box id="infoLabelBox" boxStyle="horizontal">
+              <button id="infoButton" enabled="true" getImage="GetInfoIcon" />
+              <checkBox id="alertInfo" label="Info" tag="INFO"
+                      onAction="OnAlert"
+                      getPressed="GetPressedAlert"
+                      screentip="Show informational alerts."/>
+            </box>
+            <box id="warningLabelBox" boxStyle="horizontal">
+              <button id="warningButton" enabled="true" getImage="GetWarningIcon" />
+              <checkBox id="alertWarn" label="Warn" tag="WARNING"
+                      onAction="OnAlert"
+                      getPressed="GetPressedAlert"
+                      screentip="Show warning alerts."/>
+            </box>
+            <box id="errorLabelBox" boxStyle="horizontal">
+              <button id="errorButton" enabled="true" getImage="GetErrorIcon" />
+              <checkBox id="alertError" label="Error" tag="ERROR"
+                        onAction="OnAlert"
+                        getPressed="GetPressedAlert"
+                        screentip="Show error alerts."/>
+            </box>
+          </box>
         </group>
       </tab>
     </tabs>
