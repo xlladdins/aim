@@ -169,6 +169,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include="aim_TemporaryKey.pfx" />
+    <None Include="KALX.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -200,10 +201,16 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>aim_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>KALX.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>F17BCF69E97268359CB03D9C7A80EFE6D546F1BE</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>29C0FABDCB9D5611730DDB1BD0C064C3591A78DD</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestTimestampUrl>http://timestamp.comodoca.com</ManifestTimestampUrl>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

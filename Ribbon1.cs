@@ -10,24 +10,6 @@ using System.Text;
 using Office = Microsoft.Office.Core;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
-
-// 1: Copy the following code block into the ThisAddin, ThisWorkbook, or ThisDocument class.
-
-//  protected override Microsoft.Office.Core.IRibbonExtensibility CreateRibbonExtensibilityObject()
-//  {
-//      return new Ribbon1();
-//  }
-
-// 2. Create callback methods in the "Ribbon Callbacks" region of this class to handle user
-//    actions, such as clicking a button. Note: if you have exported this Ribbon from the Ribbon designer,
-//    move your code from the event handlers to the callback methods and modify the code to work with the
-//    Ribbon extensibility (RibbonX) programming model.
-
-// 3. Assign attributes to the control tags in the Ribbon XML file to identify the appropriate callback methods in your code.  
-
-// For more information, see the Ribbon XML documentation in the Visual Studio Tools for Office Help.
-
-
 namespace aim
 {
     [ComVisible(true)]
@@ -36,7 +18,7 @@ namespace aim
         private Office.IRibbonUI ribbon;
 
         private string alert_level = @"SOFTWARE\KALX\xll";
-        private enum XLL_ALERT : uint
+        private enum XLL_ALERT
         {
             ERROR = 1,
             WARNING = 2,
@@ -82,8 +64,8 @@ namespace aim
 
             using (var key = Registry.CurrentUser.OpenSubKey(alert_level))
             {
-                var xal = key.GetValue("xll_alert_level");
-                level = (XLL_ALERT)xal;
+                var xal = key.GetValue("xll_alert_level", 0);
+                level = (XLL_ALERT)Enum.ToObject(typeof(XLL_ALERT), xal);
             }
             
             return level;
@@ -92,8 +74,15 @@ namespace aim
         {
             using (var key = Registry.CurrentUser.CreateSubKey(alert_level))
             {
-                key.SetValue("xll_alert_level", level);
+                key.SetValue("xll_alert_level", level, RegistryValueKind.DWord);
             }
+        }
+        public bool GetPressedAlert(Office.IRibbonControl control)
+        {
+            XLL_ALERT level = GetAlert();
+            Enum.TryParse(control.Tag, out XLL_ALERT value);
+
+            return level.HasFlag(value);
         }
         public void OnAlert(Office.IRibbonControl control, bool pressed)
         {
