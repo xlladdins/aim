@@ -37,6 +37,18 @@
                     <xsl:value-of select="name" />
                     <xsl:text>Box</xsl:text>
                   </xsl:attribute>
+                  <xsl:attribute name="label">
+                    <xsl:value-of select="name" />
+                  </xsl:attribute>
+                  <xsl:attribute name="onAction">
+                    <xsl:text>OnAddIn</xsl:text>
+                  </xsl:attribute>
+                  <xsl:attribute name="getPressed">
+                    <xsl:text>GetPressedAddIn</xsl:text>
+                  </xsl:attribute>
+                  <xsl:attribute name="screentip">
+                    <xsl:value-of select="description" />
+                  </xsl:attribute>
                 </xsl:element>
                 <!--
                 <checkBox 

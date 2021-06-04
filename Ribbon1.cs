@@ -63,7 +63,6 @@ namespace aim
 
             }
 
-
             return ribbon_xml;
         }
 
@@ -129,6 +128,14 @@ namespace aim
             }
 
             SetAlert(level);
+        }
+        public void OnAddIn(Office.IRibbonControl control, bool pressed)
+        {
+
+        }
+        public bool GetPressedAddIn(Office.IRibbonControl control)
+        {
+            return true;
         }
 
         #endregion
