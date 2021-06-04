@@ -28,6 +28,13 @@
             </box>
           </box>
         </group>
+        <group id="addInGroup" label="AddIns">
+              <button id="mathButton" enabled="true"/>
+              <checkBox id="mathBox" label="xll_math" tag="math"
+                      onAction="OnMath"
+                      getPressed="GetPressedAddIn"
+                      screentip="Functions from the &lt;cmath&gt; library"/>
+        </group>
       </tab>
     </tabs>
   </ribbon>

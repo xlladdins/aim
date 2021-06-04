@@ -1,13 +1,12 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Text;
 using Office = Microsoft.Office.Core;
+using System.Xml;
+using System.Xml.Xsl;
 
 // TODO:  Follow these steps to enable the Ribbon (XML) item:
 namespace aim
@@ -34,7 +33,38 @@ namespace aim
 
         public string GetCustomUI(string ribbonID)
         {
-            return GetResourceText("aim.Ribbon1.xml");
+            string ribbon_xml;
+            // read from https://xlladdins.com/...
+            string addin_xml = @"
+<addins>
+<addin>
+<name>xll_math</name>
+<description>Functions from the &lt;cmath&gt; library</description>
+</addin>
+<addin>
+<name>xll_registry</name>
+<description>Store and retrieve data from the Windows registry</description>
+</addin>
+</addins>
+";
+            string addin_xsl = GetResourceText("aim.Ribbon1.xsl");
+            using (XmlTextReader xmlReader = new XmlTextReader(new StringReader(addin_xml)))
+            {
+                using (XmlTextReader xslReader = new XmlTextReader(new StringReader(addin_xsl)))
+                {
+                    XslCompiledTransform xslTransform = new XslCompiledTransform();
+                    xslTransform.Load(xslReader);
+                    using (StringWriter xmlWriter = new StringWriter())
+                    {
+                        xslTransform.Transform(xmlReader, null, xmlWriter);
+                        ribbon_xml = xmlWriter.ToString();
+                    }
+                }
+
+            }
+
+
+            return ribbon_xml;
         }
 
         #endregion

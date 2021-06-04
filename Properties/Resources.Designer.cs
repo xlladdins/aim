@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace aim.Properties {
+    using System;
     
     
     /// <summary>
@@ -18,7 +19,7 @@ namespace aim.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -56,6 +57,25 @@ namespace aim.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+        ///&lt;xsl:stylesheet version=&quot;1.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+        ///  &lt;xsl:template match=&quot;/&quot;&gt;
+        ///    &lt;customUI xmlns=&quot;http://schemas.microsoft.com/office/2009/07/customui&quot; onLoad=&quot;Ribbon_Load&quot;&gt;
+        ///      &lt;ribbon&gt;
+        ///        &lt;tabs&gt;
+        ///          &lt;tab idMso=&quot;TabAddIns&quot; label=&quot;XllAddIns&quot;&gt;
+        ///            &lt;group id=&quot;alertsGroup&quot; label=&quot;Alerts&quot;&gt;
+        ///              &lt;box id=&quot;infoBox&quot; boxStyle=&quot;vertical&quot;&gt;
+        ///                &lt;box id=&quot;infoLabelBox&quot; boxStyle=&quot;horizontal&quot;&gt;
+        ///           [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Ribbon1_xsl {
+            get {
+                return ResourceManager.GetString("Ribbon1.xsl", resourceCulture);
             }
         }
     }
